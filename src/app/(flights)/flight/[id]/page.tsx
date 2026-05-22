@@ -4,6 +4,7 @@ import SeatMap from "@/components/seatmap/seat-map";
 import BookingSummary from "@/app/(bookings)/booking-summary";
 
 import { getFlightById } from "@/services/flights";
+import FlightDetailsClient from "@/app/(flights)/flight/flight-details-client";    
 
 interface FlightPageProps {
   params: Promise<{
@@ -84,15 +85,9 @@ export default async function FlightPage({
 
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[1fr_350px]">
-
-          <SeatMap seats={flight.seats} />
-
-          <BookingSummary
-            price={flight.base_price}
-          />
-
-        </div>
+        <FlightDetailsClient
+            flight={flight}
+            />
 
       </div>
 

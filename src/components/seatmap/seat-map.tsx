@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 
 import Seat from "./seat";
 import SeatLegend from "./seat-legend";
+import { useFlightStore } from "@/store/flight-store";
 
 interface SeatData {
   id: string;
@@ -20,8 +21,10 @@ export default function SeatMap({
   seats,
 }: SeatMapProps) {
 
-  const [selectedSeat, setSelectedSeat] =
-    useState<string | null>(null);
+  const {
+    selectedSeatId,
+    setSelectedSeat,
+    } = useFlightStore();
 
   const groupedSeats = {
     first: seats.filter(
@@ -68,10 +71,13 @@ export default function SeatMap({
                     seatNumber={seat.seat_number}
                     occupied={!seat.is_available}
                     selected={
-                      selectedSeat === seat.id
+                        selectedSeatId === seat.id
                     }
                     onClick={() =>
-                      setSelectedSeat(seat.id)
+                        setSelectedSeat(
+                            seat.id,
+                            seat.seat_number
+                        )
                     }
                   />
                 ))}
