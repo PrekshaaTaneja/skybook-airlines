@@ -22,3 +22,24 @@ export async function searchFlights(
 
   return data;
 }
+
+export async function getFlightById(
+  flightId: string
+) {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("flights")
+    .select(`
+      *,
+      seats (*)
+    `)
+    .eq("id", flightId)
+    .single();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}

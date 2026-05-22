@@ -1,4 +1,6 @@
 import { searchFlights } from "@/services/flights";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface SearchPageProps {
   searchParams: Promise<{
@@ -101,7 +103,11 @@ export default async function SearchPage({
                     <p className="mt-1 text-3xl font-bold text-blue-600">
                       ₹{flight.base_price}
                     </p>
-
+                    <Link href={`/flight/${flight.id}`}>
+                        <Button className="mt-4">
+                            Select Flight
+                        </Button>
+                    </Link>
                   </div>
 
                 </div>
