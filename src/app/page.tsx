@@ -1,7 +1,20 @@
-export default function Home() {
+import Footer from "@/components/layout/footer";
+import Navbar from "@/components/layout/navbar";
+import FeaturesSection from "@/components/home/features-section";
+import HeroSection from "@/components/home/hero-section";
+
+export default function HomePage() {
   return (
     <main>
-      <h1>SkyBook Airlines</h1>
+
+      <Navbar />
+
+      <HeroSection />
+
+      <FeaturesSection />
+
+      <Footer />
+
     </main>
   );
 }
