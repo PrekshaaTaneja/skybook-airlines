@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import SeatMap from "@/components/seatmap/seat-map";
-import BookingSummary from "@/app/(bookings)/booking-summary";
+import BookingSummary from "@/components/booking/booking-summary";
 
 import { getFlightById } from "@/services/flights";
 import FlightDetailsClient from "@/app/(flights)/flight/flight-details-client";    

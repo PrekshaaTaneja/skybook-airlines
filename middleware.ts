@@ -39,7 +39,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/my-bookings/:path*",
-    "/flight/:path*",
+    "/my-bookings/:path*"
+    // "/flight/:path*",
   ],
 };

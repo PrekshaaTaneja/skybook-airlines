@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import SeatMap from "@/components/seatmap/seat-map";
 
-import BookingSummary from "@/app/(bookings)/booking-summary";
+import BookingSummary from "@/components/booking/booking-summary";
 
 import { useFlightStore } from "@/store/flight-store";
 
