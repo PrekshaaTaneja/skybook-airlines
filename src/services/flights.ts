@@ -1,20 +1,25 @@
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
 
 export async function searchFlights(
   origin: string,
   destination: string
 ) {
-  const supabase = createClient();
+  const supabase = await createClient();
+
+  console.log("SEARCHING:", {
+    origin,
+    destination,
+  });
 
   const { data, error } = await supabase
     .from("flights")
     .select("*")
     .eq("origin", origin)
     .eq("destination", destination)
-    .eq("status", "scheduled")
-    .order("departs_at", {
-      ascending: true,
-    });
+    .eq("status", "scheduled");
+
+  console.log("FLIGHTS DATA:", data);
+  console.log("FLIGHTS ERROR:", error);
 
   if (error) {
     throw new Error(error.message);
@@ -26,7 +31,7 @@ export async function searchFlights(
 export async function getFlightById(
   flightId: string
 ) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error } = await supabase
     .from("flights")
@@ -74,7 +79,7 @@ export async function createBooking({
   };
 }) {
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const pnrCode = generatePNR();
 
@@ -147,7 +152,7 @@ export async function getBookingById(
   bookingId: string
 ) {
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error } =
     await supabase
@@ -172,7 +177,7 @@ export async function getUserBookings(
   userId: string
 ) {
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error } =
     await supabase
@@ -200,7 +205,7 @@ export async function cancelBooking(
   seatId: string
 ) {
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     error: bookingError,
@@ -245,7 +250,7 @@ export async function rescheduleBooking({
   newFlightId: string;
 }) {
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     error: rescheduleError,

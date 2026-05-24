@@ -81,9 +81,7 @@ export default function BookingSummary({
 
       <button
         onClick={() =>
-          alert(
-            "Booking creation flow will be added in next step."
-          )
+          router.push(`/booking/${flightId}`)
         }
         className="mt-8 h-12 w-full rounded-xl bg-blue-600 text-white transition hover:bg-blue-700"
       >
