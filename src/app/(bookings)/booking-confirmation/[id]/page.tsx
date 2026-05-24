@@ -1,16 +1,16 @@
 import { getBookingById } from "@/services/flights";
 
 interface ConfirmationPageProps {
-  params: Promise<{
+  params: {
     id: string;
-  }>;
+  };
 }
 
 export default async function ConfirmationPage({
   params,
 }: ConfirmationPageProps) {
 
-  const { id } = await params;
+  const { id } = params;
 
   const booking =
     await getBookingById(id);
@@ -137,3 +137,4 @@ export default async function ConfirmationPage({
     </main>
   );
 }
+

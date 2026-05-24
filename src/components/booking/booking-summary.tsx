@@ -6,10 +6,12 @@ import { useFlightStore } from "@/store/flight-store";
 
 interface BookingSummaryProps {
   price: number;
+  flightId: string;
 }
 
 export default function BookingSummary({
   price,
+  flightId,
 }: BookingSummaryProps) {
 
   const router = useRouter();
@@ -79,7 +81,9 @@ export default function BookingSummary({
 
       <button
         onClick={() =>
-          router.push("/booking")
+          alert(
+            "Booking creation flow will be added in next step."
+          )
         }
         className="mt-8 h-12 w-full rounded-xl bg-blue-600 text-white transition hover:bg-blue-700"
       >

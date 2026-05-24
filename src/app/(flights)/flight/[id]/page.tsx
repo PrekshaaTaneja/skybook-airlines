@@ -7,16 +7,16 @@ import { getFlightById } from "@/services/flights";
 import FlightDetailsClient from "@/app/(flights)/flight/flight-details-client";    
 
 interface FlightPageProps {
-  params: Promise<{
+  params: {
     id: string;
-  }>;
+  };
 }
 
 export default async function FlightPage({
   params,
 }: FlightPageProps) {
 
-  const { id } = await params;
+  const { id } = params;
 
   const flight = await getFlightById(id);
 

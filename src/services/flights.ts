@@ -167,3 +167,122 @@ export async function getBookingById(
 
   return data;
 }
+
+export async function getUserBookings(
+  userId: string
+) {
+
+  const supabase = createClient();
+
+  const { data, error } =
+    await supabase
+      .from("bookings")
+      .select(`
+        *,
+        flights (*),
+        passengers (*),
+        seats (*)
+      `)
+      .eq("user_id", userId)
+      .order("created_at", {
+        ascending: false,
+      });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function cancelBooking(
+  bookingId: string,
+  seatId: string
+) {
+
+  const supabase = createClient();
+
+  const {
+    error: bookingError,
+  } = await supabase
+    .from("bookings")
+    .update({
+      status: "cancelled",
+    })
+    .eq("id", bookingId);
+
+  if (bookingError) {
+    throw new Error(
+      bookingError.message
+    );
+  }
+
+  const {
+    error: seatError,
+  } = await supabase
+    .from("seats")
+    .update({
+      is_available: true,
+    })
+    .eq("id", seatId);
+
+  if (seatError) {
+    throw new Error(
+      seatError.message
+    );
+  }
+
+  return true;
+}
+
+export async function rescheduleBooking({
+  bookingId,
+  oldFlightId,
+  newFlightId,
+}: {
+  bookingId: string;
+  oldFlightId: string;
+  newFlightId: string;
+}) {
+
+  const supabase = createClient();
+
+  const {
+    error: rescheduleError,
+  } = await supabase
+    .from("reschedules")
+    .insert({
+      booking_id: bookingId,
+
+      old_flight_id: oldFlightId,
+
+      new_flight_id: newFlightId,
+
+      fee_charged: 1200,
+    });
+
+  if (rescheduleError) {
+    throw new Error(
+      rescheduleError.message
+    );
+  }
+
+  const {
+    error: bookingError,
+  } = await supabase
+    .from("bookings")
+    .update({
+      flight_id: newFlightId,
+
+      status: "rescheduled",
+    })
+    .eq("id", bookingId);
+
+  if (bookingError) {
+    throw new Error(
+      bookingError.message
+    );
+  }
+
+  return true;
+}

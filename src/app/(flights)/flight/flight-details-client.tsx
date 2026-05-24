@@ -37,6 +37,7 @@ export default function FlightDetailsClient({
 
       <BookingSummary
         price={flight.base_price}
+        flightId={flight.id}
       />
 
     </div>

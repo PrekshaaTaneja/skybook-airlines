@@ -3,17 +3,17 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 interface SearchPageProps {
-  searchParams: Promise<{
+  searchParams: {
     origin?: string;
     destination?: string;
-  }>;
+  };
 }
 
 export default async function SearchPage({
   searchParams,
 }: SearchPageProps) {
 
-  const params = await searchParams;
+  const params = searchParams;
 
   const flights = await searchFlights(
     params.origin || "",
